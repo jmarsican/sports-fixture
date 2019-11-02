@@ -1,11 +1,12 @@
 package com.javiermarsicano.sportsfixture.views.fixtureslist
 
 import com.javiermarsicano.sportsfixture.common.mvp.BaseMVPPresenter
-import com.javiermarsicano.sportsfixture.data.FixtureRepository
+import com.javiermarsicano.sportsfixture.data.repository.FixtureRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class FixturesListPresenterImpl(private val repository: FixtureRepository): BaseMVPPresenter<FixtureView>(), FixturesListPresenter {
+class FixturesListPresenterImpl @Inject constructor(private val repository: FixtureRepository): BaseMVPPresenter<FixtureView>(), FixturesListPresenter {
     override fun getFixtures() {
         viewReference.get()?.showLoading()
         repository.getFixtures()

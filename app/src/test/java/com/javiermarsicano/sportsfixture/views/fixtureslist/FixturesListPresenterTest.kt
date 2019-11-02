@@ -1,6 +1,6 @@
 package com.javiermarsicano.sportsfixture.views.fixtureslist
 
-import com.javiermarsicano.sportsfixture.data.FixtureRepository
+import com.javiermarsicano.sportsfixture.data.repository.FixtureRepository
 import com.javiermarsicano.sportsfixture.data.models.Fixture
 import io.reactivex.Single
 import org.junit.Before

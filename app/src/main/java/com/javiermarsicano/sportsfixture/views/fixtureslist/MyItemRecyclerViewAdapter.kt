@@ -29,7 +29,7 @@ class MyItemRecyclerViewAdapter(private var mValues: MutableList<Fixture> = muta
 
             override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
                 val newItem = newValues[newItemPosition]
-                val oldItem = mValues.get(oldItemPosition)
+                val oldItem = mValues[oldItemPosition]
                 return (newItem.id == oldItem.id
                         && newItem.date == oldItem.date)
             }

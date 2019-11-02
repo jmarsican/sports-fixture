@@ -1,4 +1,4 @@
-package com.javiermarsicano.sportsfixture.data
+package com.javiermarsicano.sportsfixture.data.repository
 
 import com.javiermarsicano.sportsfixture.data.models.Fixture
 import com.javiermarsicano.sportsfixture.data.services.SportsApiServices

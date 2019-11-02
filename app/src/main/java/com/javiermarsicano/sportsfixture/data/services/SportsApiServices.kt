@@ -5,6 +5,6 @@ import io.reactivex.Single
 import retrofit2.http.GET
 
 interface SportsApiServices {
-    @GET("/fixtures.json")
+    @GET("fixtures.json")
     fun getFixtures(): Single<List<Fixture>>
 }
