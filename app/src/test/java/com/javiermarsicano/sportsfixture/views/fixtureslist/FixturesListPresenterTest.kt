@@ -20,7 +20,7 @@ class FixturesListPresenterTest {
     private lateinit var repository: FixtureRepository
     private lateinit var view: FixtureView
 
-    private lateinit var presenter: FixturesListPresenterImpl
+    private lateinit var presenter: FixturesListPresenter
 
 
     private val fixture = Fixture(null,

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="loader_margin">8dp</dimen>
+    <dimen name="entry_padding">3dp</dimen>
+    <dimen name="list_margin">16dp</dimen>
+
 
     <!--cards-->
 </resources>
