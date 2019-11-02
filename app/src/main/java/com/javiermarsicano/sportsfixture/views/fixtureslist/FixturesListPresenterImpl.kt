@@ -2,10 +2,18 @@ package com.javiermarsicano.sportsfixture.views.fixtureslist
 
 import com.javiermarsicano.sportsfixture.common.mvp.BaseMVPPresenter
 import com.javiermarsicano.sportsfixture.data.FixtureRepository
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
-class FixturesListPresenterImpl(repository: FixtureRepository?): BaseMVPPresenter<FixtureView>() {
+class FixturesListPresenterImpl(val repository: FixtureRepository): BaseMVPPresenter<FixtureView>() {
     fun getFixtures() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        repository.getFixtures()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    viewReference.get()?.showFixtures(it)
+                },{})
+                .bindToLifecycle()
     }
 
 }
