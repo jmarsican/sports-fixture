@@ -14,20 +14,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/HighlightedText"
+        android:textAllCaps="true"
         app:layout_constraintBottom_toTopOf="@+id/match_place_time"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="UEFA" />
+        tools:text="Premier League" />
 
     <TextView
         android:id="@+id/match_place_time"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/vertical_distance"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@+id/home_team"
+        app:layout_constraintEnd_toStartOf="@+id/division2"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/competition"
-        tools:text="Wembley Stadium | Sep 12, 2018 at 20:00" />
+        tools:text="Wembley Stadium |  Sep 12, 2018 at 20:00" />
+
+    <Button
+        android:id="@+id/postponed"
+        android:layout_width="0dp"
+        android:layout_height="14dp"
+        android:text="@string/postponed"
+        android:textSize="8sp"
+        android:layout_marginTop="14dp"
+        android:background="@color/alert"
+        android:textColor="@android:color/white"
+        app:layout_constraintLeft_toRightOf="@id/division2"
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/home_team"
@@ -57,25 +76,52 @@
         android:id="@+id/date_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingEnd="10dp"
-        android:paddingStart="10dp"
-        android:text="20"
+        tools:text="20"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="33sp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintStart_toStartOf="@+id/week_day"
         app:layout_constraintBottom_toTopOf="@+id/week_day"/>
+
+    <TextView
+        android:id="@+id/home_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="19dp"
+        tools:text="2"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="19sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/home_team"/>
+
+    <TextView
+        android:id="@+id/away_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/vertical_distance"
+        android:paddingEnd="19dp"
+        tools:text="0"
+        style="@style/HighlightedText"
+        android:textSize="19sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/away_team"/>
 
     <TextView
         android:id="@+id/week_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/vertical_distance"
-        android:text="SAT"
+        android:paddingEnd="15dp"
+        android:paddingStart="15dp"
+        tools:text="SAT"
+        android:textAllCaps="true"
         style="@style/HighlightedText"
+        android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/division"
-        app:layout_constraintEnd_toEndOf="@id/date_day"
-        app:layout_constraintStart_toStartOf="@id/date_day"
-        app:layout_constraintLeft_toRightOf="@+id/division2" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <View
         android:id="@+id/division"
@@ -89,10 +135,13 @@
         android:id="@+id/division2"
         android:layout_width="1dp"
         android:layout_height="0dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="@dimen/vertical_distance"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/match_place_time"
-        app:layout_constraintRight_toLeftOf="@+id/date_day"
+        app:layout_constraintRight_toLeftOf="@+id/week_day"
+        android:visibility="gone"
+        tools:visibility="visible"
         android:background="@android:color/darker_gray"/>
 
 </android.support.constraint.ConstraintLayout>

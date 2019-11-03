@@ -10,3 +10,8 @@ data class Fixture(
         val type: String?,
         val venue: Venue?
 )
+
+enum class STATE(val value: String) {
+    POS("postponed"),
+    PRE("preMatch")
+}
