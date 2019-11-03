@@ -2,4 +2,6 @@
     <string name="app_name">Sports Champions</string>
     <string name="generic_error">Some error occurred</string>
     <string name="postponed">Postponed</string>
+    <string name="fixtures">fixtures</string>
+    <string name="result">result</string>
 </resources>
