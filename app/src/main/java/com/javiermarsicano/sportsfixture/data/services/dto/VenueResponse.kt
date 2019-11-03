@@ -1,6 +1,6 @@
-package com.javiermarsicano.sportsfixture.data.services.models
+package com.javiermarsicano.sportsfixture.data.services.dto
 
-import com.javiermarsicano.sportsfixture.views.viewmodels.Venue
+import com.javiermarsicano.sportsfixture.views.models.Venue
 
 data class VenueResponse(
     val id: Int?,

@@ -1,4 +1,4 @@
-package com.javiermarsicano.sportsfixture.views.viewmodels
+package com.javiermarsicano.sportsfixture.views.models
 
 data class Venue(
     val id: Int?,

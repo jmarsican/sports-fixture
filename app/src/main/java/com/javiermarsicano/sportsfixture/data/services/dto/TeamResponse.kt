@@ -1,6 +1,6 @@
-package com.javiermarsicano.sportsfixture.data.services.models
+package com.javiermarsicano.sportsfixture.data.services.dto
 
-import com.javiermarsicano.sportsfixture.views.viewmodels.Team
+import com.javiermarsicano.sportsfixture.views.models.Team
 
 data class TeamResponse(
     val abbr: String?,

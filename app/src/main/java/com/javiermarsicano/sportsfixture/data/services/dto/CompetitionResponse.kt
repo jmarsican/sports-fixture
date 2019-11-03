@@ -1,6 +1,6 @@
-package com.javiermarsicano.sportsfixture.data.services.models
+package com.javiermarsicano.sportsfixture.data.services.dto
 
-import com.javiermarsicano.sportsfixture.views.viewmodels.Competition
+import com.javiermarsicano.sportsfixture.views.models.Competition
 
 data class CompetitionResponse(
     val id: Int?,

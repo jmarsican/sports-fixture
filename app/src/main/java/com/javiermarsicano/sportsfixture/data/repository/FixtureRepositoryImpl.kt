@@ -2,10 +2,10 @@ package com.javiermarsicano.sportsfixture.data.repository
 
 import com.javiermarsicano.sportsfixture.data.db.FixturesDatabase
 import com.javiermarsicano.sportsfixture.data.services.SportsApiServices
-import com.javiermarsicano.sportsfixture.data.services.models.toVieModel
-import com.javiermarsicano.sportsfixture.views.viewmodels.Fixture
-import com.javiermarsicano.sportsfixture.views.viewmodels.toDao
-import com.javiermarsicano.sportsfixture.views.viewmodels.toViewModel
+import com.javiermarsicano.sportsfixture.data.services.dto.toVieModel
+import com.javiermarsicano.sportsfixture.views.models.Fixture
+import com.javiermarsicano.sportsfixture.views.models.toDao
+import com.javiermarsicano.sportsfixture.views.models.toViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers

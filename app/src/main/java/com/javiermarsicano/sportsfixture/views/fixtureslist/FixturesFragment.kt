@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.javiermarsicano.sportsfixture.MyApplication
 import com.javiermarsicano.sportsfixture.R
 import com.javiermarsicano.sportsfixture.common.mvp.BaseMVPFragment
-import com.javiermarsicano.sportsfixture.views.viewmodels.Fixture
+import com.javiermarsicano.sportsfixture.views.models.Fixture
 import kotlinx.android.synthetic.main.fragment_items_list.view.*
 import timber.log.Timber
 import javax.inject.Inject

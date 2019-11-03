@@ -1,4 +1,4 @@
-package com.javiermarsicano.sportsfixture.views.viewmodels
+package com.javiermarsicano.sportsfixture.views.models
 
 import com.javiermarsicano.sportsfixture.data.db.FixtureTable
 

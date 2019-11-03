@@ -1,6 +1,6 @@
-package com.javiermarsicano.sportsfixture.data.services.models
+package com.javiermarsicano.sportsfixture.data.services.dto
 
-import com.javiermarsicano.sportsfixture.views.viewmodels.CompetitionStage
+import com.javiermarsicano.sportsfixture.views.models.CompetitionStage
 
 data class CompetitionStageResponse(
     val competition: CompetitionResponse?
