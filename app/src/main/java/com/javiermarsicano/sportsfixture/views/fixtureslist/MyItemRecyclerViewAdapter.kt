@@ -57,16 +57,24 @@ class MyItemRecyclerViewAdapter(private var mValues: MutableList<Fixture> = muta
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        holder.mName.text = item.state
+        holder.competition.text = item.competitionStage?.competition?.name
+        holder.matchData.text = item.date
+        holder.awayTeam.text = item.awayTeam?.name
+        holder.homeTeam.text = item.homeTeam?.name
     }
 
     override fun getItemCount(): Int = mValues.size
 
     inner class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
-        val mName: TextView = mView.entry_title
+        val competition = mView.competition
+        val matchData = mView.match_place_time
+        val awayTeam = mView.away_team
+        val homeTeam = mView.home_team
+        val date = mView.date_day
+        val weekDay = mView.week_day
 
         override fun toString(): String {
-            return super.toString() + " '" + mName.text + "'"
+            return super.toString() + " '" + competition.text + "'"
         }
     }
 }

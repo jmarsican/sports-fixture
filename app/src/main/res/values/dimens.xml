@@ -4,6 +4,8 @@
     <dimen name="entry_padding">3dp</dimen>
     <dimen name="list_margin">16dp</dimen>
 
+    <dimen name="vertical_distance">8dp</dimen>
+
 
     <!--cards-->
 </resources>
