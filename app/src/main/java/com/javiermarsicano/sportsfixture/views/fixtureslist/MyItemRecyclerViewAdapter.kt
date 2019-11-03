@@ -14,8 +14,8 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.javiermarsicano.sportsfixture.R
-import com.javiermarsicano.sportsfixture.data.models.Fixture
-import com.javiermarsicano.sportsfixture.data.models.STATE
+import com.javiermarsicano.sportsfixture.views.viewmodels.Fixture
+import com.javiermarsicano.sportsfixture.views.viewmodels.STATE
 import kotlinx.android.synthetic.main.entry_item.view.*
 import java.text.SimpleDateFormat
 import java.util.*

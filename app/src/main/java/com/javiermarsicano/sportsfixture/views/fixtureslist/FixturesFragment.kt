@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.javiermarsicano.sportsfixture.MyApplication
 import com.javiermarsicano.sportsfixture.R
 import com.javiermarsicano.sportsfixture.common.mvp.BaseMVPFragment
-import com.javiermarsicano.sportsfixture.data.models.Fixture
+import com.javiermarsicano.sportsfixture.views.viewmodels.Fixture
 import kotlinx.android.synthetic.main.fragment_items_list.view.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -41,7 +41,10 @@ class FixturesFragment: BaseMVPFragment<FixtureView, FixturesListPresenter>(), F
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState != null) {
+            val previousItems = getPresenter().getCache()
+            mAdapter.setItemsList(previousItems.toMutableList())
+        } else {
             getPresenter().getFixtures()
         }
     }

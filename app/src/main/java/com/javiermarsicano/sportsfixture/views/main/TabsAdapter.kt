@@ -9,7 +9,7 @@ class TabsAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int) =
         when (position) {
-            0 -> FixturesFragment()
+            0 -> FixturesFragment.newInstance()
             else -> FixturesFragment()
         }
 }

@@ -1,6 +1,8 @@
 package com.javiermarsicano.sportsfixture.common.di
 
 import android.app.Application
+import android.arch.persistence.room.Room
+import com.javiermarsicano.sportsfixture.data.db.FixturesDatabase
 import com.javiermarsicano.sportsfixture.data.repository.FixtureRepository
 import com.javiermarsicano.sportsfixture.data.repository.FixtureRepositoryImpl
 import com.javiermarsicano.sportsfixture.data.services.SportsApiServices
@@ -50,8 +52,16 @@ class RepositoriesModule(private val application: Application) {
 
     @Singleton
     @Provides
-    fun provideRepository(service: SportsApiServices) : FixtureRepository {
-        return FixtureRepositoryImpl(service)
+    fun provideRepository(service: SportsApiServices, db: FixturesDatabase) : FixtureRepository {
+        return FixtureRepositoryImpl(service, db)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDatabase() : FixturesDatabase {
+        return Room.databaseBuilder(application, FixturesDatabase::class.java, "fixtures.db")
+                .fallbackToDestructiveMigration()
+                .build()
     }
 
 }

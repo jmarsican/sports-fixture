@@ -36,6 +36,11 @@ dependencies {
     implementation "com.android.support:support-v4:$rootProject.appCompatVersion"
     implementation "com.android.support:design:$rootProject.appCompatVersion"
 
+    //Architecture Components
+    implementation "android.arch.persistence.room:runtime:$rootProject.room_version"
+    kapt "android.arch.persistence.room:compiler:$rootProject.room_version"
+    implementation "android.arch.persistence.room:rxjava2:$rootProject.room_version"
+
     //logger
     implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
 

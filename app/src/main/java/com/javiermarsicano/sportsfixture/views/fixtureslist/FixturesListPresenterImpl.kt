@@ -7,6 +7,9 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class FixturesListPresenterImpl @Inject constructor(private val repository: FixtureRepository): BaseMVPPresenter<FixtureView>(), FixturesListPresenter {
+
+    fun getCache() = repository.getCache()
+
     override fun getFixtures() {
         viewReference.get()?.showLoading()
         repository.getFixtures()

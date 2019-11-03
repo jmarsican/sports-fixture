@@ -1,4 +1,4 @@
-package com.javiermarsicano.sportsfixture.data.models
+package com.javiermarsicano.sportsfixture.views.viewmodels
 
 data class CompetitionStage(
     val competition: Competition?

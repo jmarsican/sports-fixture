@@ -1,12 +1,47 @@
 package com.javiermarsicano.sportsfixture.data.repository
 
-import com.javiermarsicano.sportsfixture.data.models.Fixture
+import com.javiermarsicano.sportsfixture.data.db.FixturesDatabase
 import com.javiermarsicano.sportsfixture.data.services.SportsApiServices
+import com.javiermarsicano.sportsfixture.data.services.models.toVieModel
+import com.javiermarsicano.sportsfixture.views.viewmodels.Fixture
+import com.javiermarsicano.sportsfixture.views.viewmodels.toDao
+import com.javiermarsicano.sportsfixture.views.viewmodels.toViewModel
+import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
-class FixtureRepositoryImpl(val apiServices: SportsApiServices): FixtureRepository {
+class FixtureRepositoryImpl(val apiServices: SportsApiServices, private val database: FixturesDatabase): FixtureRepository {
+
+    override fun getCache() = cached
+
+    var cached: ArrayList<Fixture> = arrayListOf()
+
     override fun getFixtures(): Single<List<Fixture>> {
         return apiServices.getFixtures()
-        //TODO cache
+                .map {
+                    it.map { it.toVieModel() }
+                }
+                .doOnSuccess {
+                    saveToLocal(it)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(Schedulers.io())
+                            .subscribe {
+                                Timber.d("Stored all results")
+                            }
+                }
+                .onErrorResumeNext{
+                    database.fixtureDao().load().map {
+                        it.map { it.toViewModel() }
+                    }
+                }
+    }
+
+    private fun saveToLocal(result: List<Fixture>)  = Observable.fromCallable {
+        cached.clear()
+        cached.addAll(result)
+
+        database.fixtureDao()
+                .save(result.map { it.toDao() })
     }
 }
