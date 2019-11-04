@@ -2,7 +2,6 @@ package com.javiermarsicano.sportsfixture.views.adapters
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
-import android.support.v4.os.ConfigurationCompat
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.text.Spannable
@@ -16,14 +15,13 @@ import android.view.ViewGroup
 import com.javiermarsicano.sportsfixture.R
 import com.javiermarsicano.sportsfixture.views.models.Fixture
 import com.javiermarsicano.sportsfixture.views.models.STATE
+import kotlinx.android.synthetic.main.divisor.view.*
 import kotlinx.android.synthetic.main.entry_item.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-const val apiDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSX"
-
 class MyItemRecyclerViewAdapter(private var mValues: MutableList<Fixture> = mutableListOf())
-    : RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder>()  {
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private lateinit var mContext: Context
 
@@ -31,7 +29,6 @@ class MyItemRecyclerViewAdapter(private var mValues: MutableList<Fixture> = muta
 
     private val userFriendlyDateFormat = "MMM dd, YYYY 'at' HH:mm"
     private val weekDayFormat = "EEE"
-
 
     fun setItemsList(newValues: MutableList<Fixture>) {
         val result = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
@@ -53,58 +50,103 @@ class MyItemRecyclerViewAdapter(private var mValues: MutableList<Fixture> = muta
 
         })
 
-        mValues = newValues
+        mValues = newValues.sortedWith(compareBy {
+            it.formatedDate
+        }).toMutableList()
+
+        val otherList = mutableListOf<Fixture>()
+        for (index in 1 until mValues.size - 1) {
+            val month1 = Calendar.getInstance().apply {
+                time = mValues[index].formatedDate
+            }.get(Calendar.MONTH)
+            val month2 = Calendar.getInstance().apply {
+                time = mValues[index+1].formatedDate
+            }.get(Calendar.MONTH)
+            otherList.add(mValues[index])
+
+            if (month1 != month2) {
+                otherList.add(Fixture(id = 0, type = "DIVISOR", formatedDate = mValues[index+1].formatedDate))
+            }
+        }
+        mValues = otherList
+
         result.dispatchUpdatesTo(this)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.entry_item, parent, false)
-
-        mContext = view.context
-
-        return ViewHolder(view)
+    override fun getItemViewType(position: Int): Int {
+        return if (mValues[position].type == "DIVISOR") 1 else 0
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = mValues[position]
-        val locale = ConfigurationCompat.getLocales(mContext.resources.configuration)[0]
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        if (viewType == 0) {
+            val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.entry_item, parent, false)
 
-        if (item.state != STATE.FINISHED.value) {
-            showPreMatchViews(holder)
-            hideResultsView(holder)
-        }
+            mContext = view.context
 
-        holder.competition.text = item.competitionStage?.competition?.name
-        holder.matchData.text = item.date
-        holder.awayTeam.text = item.awayTeam?.name
-        holder.homeTeam.text = item.homeTeam?.name
-
-        holder.postponed.visibility = if (item.state == STATE.POS.value) VISIBLE else GONE
-
-        val date = SimpleDateFormat(apiDateFormat, locale).parse(item.date)
-
-        holder.matchData.text = getMatchDataLabel(date, item)
-
-
-        if (item.state != STATE.FINISHED.value) {
-            holder.weekDay.text = SimpleDateFormat(weekDayFormat, locale).format(date)
-
-            val cal = Calendar.getInstance().apply {
-                time = date
-                if (item.state == STATE.POS.value) add(Calendar.DATE, -DAYS_POSTPONED)
-            }
-            holder.date.text = cal.get(Calendar.DAY_OF_MONTH).toString()
+            return FixtureViewHolder(view)
         } else {
-            holder.awayResult.text = item.score?.away.toString()
-            holder.homeResult.text = item.score?.home.toString()
-        }
+            val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.divisor, parent, false)
 
+            mContext = view.context
+
+            return DivisorViewHolder(view)
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val item = mValues[position]
+
+        if (holder.itemViewType == 1) {
+            holder as DivisorViewHolder
+            holder.label.text = SimpleDateFormat("MMMM YYYY", Locale.US).format(item.formatedDate)
+
+        } else {
+            holder as FixtureViewHolder
+
+            if (item.state != STATE.FINISHED.value) {
+                showPreMatchViews(holder)
+                hideResultsView(holder)
+            }
+
+            holder.competition.text = item.competitionStage?.competition?.name
+            holder.matchData.text = item.date
+            holder.awayTeam.text = item.awayTeam?.name
+            holder.homeTeam.text = item.homeTeam?.name
+
+            holder.postponed.visibility = if (item.state == STATE.POS.value) VISIBLE else GONE
+
+            holder.matchData.text = getMatchDataLabel(item.formatedDate, item)
+
+            if (item.state != STATE.FINISHED.value) {
+                holder.weekDay.text = SimpleDateFormat(weekDayFormat, Locale.US).format(item.formatedDate)
+
+                val cal = Calendar.getInstance().apply {
+                    time = item.formatedDate
+                    if (item.state == STATE.POS.value) add(Calendar.DATE, -DAYS_POSTPONED)
+                }
+                holder.date.text = cal.get(Calendar.DAY_OF_MONTH).toString()
+            } else {
+                holder.setIsRecyclable(false)
+                val score = item.score
+                holder.awayResult.text = score?.away.toString()
+                holder.homeResult.text = score?.home.toString()
+
+                val winnerColor = ContextCompat.getColor(mContext, R.color.colorPrimary)
+                score?.let {
+                    if (score.away > score.home) {
+                        holder.awayResult.setTextColor(winnerColor)
+                    } else {
+                        holder.homeResult.setTextColor(winnerColor)
+                    }
+                }
+            }
+        }
     }
 
     private fun getMatchDataLabel(date: Date?, item: Fixture): SpannableStringBuilder {
-        val locale = ConfigurationCompat.getLocales(mContext.resources.configuration)[0]
-        val dateLabel = SimpleDateFormat(userFriendlyDateFormat, locale).format(date)
+        val dateLabel = SimpleDateFormat(userFriendlyDateFormat, Locale.US).format(date)
         val matchInfo = item.venue?.name + " | " + dateLabel
         val span = SpannableStringBuilder(matchInfo)
         if (item.state == STATE.POS.value) {
@@ -116,12 +158,12 @@ class MyItemRecyclerViewAdapter(private var mValues: MutableList<Fixture> = muta
         return span
     }
 
-    private fun hideResultsView(holder: ViewHolder) {
+    private fun hideResultsView(holder: FixtureViewHolder) {
         holder.awayResult.visibility = GONE
         holder.homeResult.visibility = GONE
     }
 
-    private fun showPreMatchViews(holder: ViewHolder) {
+    private fun showPreMatchViews(holder: FixtureViewHolder) {
         holder.divisor.visibility = VISIBLE
         holder.weekDay.visibility = VISIBLE
         holder.date.visibility = VISIBLE
@@ -129,7 +171,7 @@ class MyItemRecyclerViewAdapter(private var mValues: MutableList<Fixture> = muta
 
     override fun getItemCount(): Int = mValues.size
 
-    inner class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
+    inner class FixtureViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
         val competition = mView.competition
         val matchData = mView.match_place_time
         val awayTeam = mView.away_team
@@ -143,6 +185,13 @@ class MyItemRecyclerViewAdapter(private var mValues: MutableList<Fixture> = muta
 
         override fun toString(): String {
             return super.toString() + " '" + matchData.text + "'"
+        }
+    }
+    inner class DivisorViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
+        val label = mView.label
+
+        override fun toString(): String {
+            return super.toString() + " '" + label.text + "'"
         }
     }
 }

@@ -9,7 +9,7 @@ data class ScoreResponse(
 )
 
 fun ScoreResponse.toViewModel() = Score(
-        away = this.away,
-        home = this.home,
+        away = this.away ?: 0,
+        home = this.home ?: 0,
         winner = this.winner
 )

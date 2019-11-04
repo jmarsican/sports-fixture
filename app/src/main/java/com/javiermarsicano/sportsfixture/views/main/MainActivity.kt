@@ -23,13 +23,14 @@ class MainActivity : BaseMVPActivity<MainView, MainPresenter>(), MainView {
         view_pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tab_layout))
         tab_layout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
             override fun onTabReselected(tab: TabLayout.Tab) {
-                view_pager.setCurrentItem(tab.position)
+                view_pager.currentItem = tab.position
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
             }
 
-            override fun onTabSelected(tab: TabLayout.Tab?) {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                view_pager.currentItem = tab.position
             }
         })
 
