@@ -1,6 +1,10 @@
-# Android Architectural Pattern Template
+# Sports Fixture Android App
 
-A sample boilerplate code for building android applications based on Model View "Something" using RxJava with minimum and elemental dependencies
+Model View Presenter using RxJava, Dagger and Room
+
+![Repo](./assets/screenshot1.png?raw=true "Fixtures")
+
+![Repo](./assets/screenshot2.png?raw=true "Results")
 
 ![Repo](./assets/repository_pattern.png?raw=true "Architecture")
 

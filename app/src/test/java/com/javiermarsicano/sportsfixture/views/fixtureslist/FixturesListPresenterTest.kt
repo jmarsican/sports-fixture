@@ -22,14 +22,7 @@ class FixturesListPresenterTest {
     private lateinit var presenter: FixturesListPresenter
 
 
-    private val fixture = Fixture(null,
-            null, "",
-            null,
-            0,
-            "",
-            "",
-            null,
-            null)
+    private val fixture = Fixture(id = 0)
 
 
     @Before

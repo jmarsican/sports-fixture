@@ -14,8 +14,12 @@ android {
         versionName "1.0"
     }
     buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", "\"https://storage.googleapis.com/cdn-og-test-api/test-task/\"")
+        }
         release {
             minifyEnabled false
+            buildConfigField("String", "BASE_URL", "\"https://storage.googleapis.com/cdn-og-test-api/test-task/\"")
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

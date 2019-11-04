@@ -2,6 +2,7 @@ package com.javiermarsicano.sportsfixture.common.di
 
 import android.app.Application
 import android.arch.persistence.room.Room
+import com.javiermarsicano.sportsfixture.BuildConfig.BASE_URL
 import com.javiermarsicano.sportsfixture.data.db.FixturesDatabase
 import com.javiermarsicano.sportsfixture.data.repository.FixtureRepository
 import com.javiermarsicano.sportsfixture.data.repository.FixtureRepositoryImpl
@@ -19,8 +20,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
-
-const val BASE_URL = "https://storage.googleapis.com/cdn-og-test-api/test-task/"
 
 @Module
 class RepositoriesModule(private val application: Application) {

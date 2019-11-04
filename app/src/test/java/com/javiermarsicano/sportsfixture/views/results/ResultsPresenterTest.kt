@@ -24,14 +24,7 @@ class ResultsPresenterTest {
     private lateinit var presenter: ResultsPresenter
 
 
-    private val fixture = Fixture(null,
-            null, "",
-            null,
-            0,
-            "",
-            "",
-            null,
-            null)
+    private val fixture = Fixture(id = 0)
 
 
     @Before
