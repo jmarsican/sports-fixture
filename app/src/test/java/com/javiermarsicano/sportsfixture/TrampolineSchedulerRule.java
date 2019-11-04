@@ -1,4 +1,4 @@
-package com.javiermarsicano.sportsfixture.views.fixtureslist;
+package com.javiermarsicano.sportsfixture;
 
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;

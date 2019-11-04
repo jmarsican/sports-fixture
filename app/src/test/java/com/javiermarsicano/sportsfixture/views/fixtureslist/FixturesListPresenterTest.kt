@@ -1,5 +1,6 @@
 package com.javiermarsicano.sportsfixture.views.fixtureslist
 
+import com.javiermarsicano.sportsfixture.TrampolineSchedulerRule
 import com.javiermarsicano.sportsfixture.data.repository.FixtureRepository
 import com.javiermarsicano.sportsfixture.views.models.Fixture
 import io.reactivex.Single
@@ -27,6 +28,7 @@ class FixturesListPresenterTest {
             0,
             "",
             "",
+            null,
             null)
 
 

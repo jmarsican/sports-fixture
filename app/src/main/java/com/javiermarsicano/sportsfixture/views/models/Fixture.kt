@@ -10,12 +10,14 @@ data class Fixture(
         val id: Int,
         val state: String?,
         val type: String?,
-        val venue: Venue?
+        val venue: Venue?,
+        val score: Score?
 )
 
 enum class STATE(val value: String) {
     POS("postponed"),
-    PRE("preMatch")
+    PRE("preMatch"),
+    FINISHED("finished")
 }
 
 fun Fixture.toDao() = FixtureTable(
@@ -26,7 +28,9 @@ fun Fixture.toDao() = FixtureTable(
         awayTeam = this.awayTeam?.name,
         homeTeam = this.homeTeam?.name,
         venue = this.venue?.name,
-        competition = this.competitionStage?.competition?.name
+        competition = this.competitionStage?.competition?.name,
+        awayScore = this.score?.away,
+        homeScore = this.score?.home
 )
 
 fun FixtureTable.toViewModel() = Fixture(
@@ -37,5 +41,6 @@ fun FixtureTable.toViewModel() = Fixture(
         awayTeam = Team(null, null, null, this.awayTeam, null),
         homeTeam = Team(null, null, null, this.homeTeam, null),
         venue = Venue(null, this.venue),
-        competitionStage = CompetitionStage(Competition(null, this.competition))
+        competitionStage = CompetitionStage(Competition(null, this.competition)),
+        score = Score(away = this.awayScore, home = this.homeScore, winner = null)
 )

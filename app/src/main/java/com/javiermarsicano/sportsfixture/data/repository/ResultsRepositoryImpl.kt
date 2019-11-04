@@ -11,14 +11,14 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-class FixtureRepositoryImpl(val apiServices: SportsApiServices, private val database: FixturesDatabase): FixtureRepository {
+class ResultsRepositoryImpl (val apiServices: SportsApiServices, private val database: FixturesDatabase): ResultsRepository {
 
     override fun getCache() = cached
 
     var cached: ArrayList<Fixture> = arrayListOf()
 
-    override fun getFixtures(): Single<List<Fixture>> {
-        return apiServices.getFixtures()
+    override fun getResults(): Single<List<Fixture>> {
+        return apiServices.getResults()
                 .map {
                     it.map { it.toVieModel() }
                 }
@@ -31,7 +31,7 @@ class FixtureRepositoryImpl(val apiServices: SportsApiServices, private val data
                             }
                 }
                 .onErrorResumeNext{
-                    database.fixtureDao().loadFixtures().map {
+                    database.fixtureDao().loadResults().map {
                         it.map { it.toViewModel() }
                     }
                 }

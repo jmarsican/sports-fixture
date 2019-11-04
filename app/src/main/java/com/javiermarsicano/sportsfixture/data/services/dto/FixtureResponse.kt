@@ -10,7 +10,8 @@ data class FixtureResponse(
         val id: Int,
         val state: String?,
         val type: String?,
-        val venue: VenueResponse?
+        val venue: VenueResponse?,
+        val score: ScoreResponse?
 )
 
 fun FixtureResponse.toVieModel() = Fixture(
@@ -21,5 +22,6 @@ fun FixtureResponse.toVieModel() = Fixture(
         awayTeam = this.awayTeam?.toViewModel(),
         homeTeam = this.homeTeam?.toViewModel(),
         venue = this.venue?.toViewModel(),
-        competitionStage = this.competitionStage?.toViewModel()
+        competitionStage = this.competitionStage?.toViewModel(),
+        score = this.score?.toViewModel()
 )

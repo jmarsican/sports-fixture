@@ -7,4 +7,6 @@ import retrofit2.http.GET
 interface SportsApiServices {
     @GET("fixtures.json")
     fun getFixtures(): Single<List<FixtureResponse>>
+    @GET("results.json")
+    fun getResults(): Single<List<FixtureResponse>>
 }

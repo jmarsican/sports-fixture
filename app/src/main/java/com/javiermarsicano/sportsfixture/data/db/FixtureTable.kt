@@ -17,5 +17,7 @@ data class FixtureTable (
         val state: String?,
         val type: String?,
         val venue: String?,
-        val competition: String?
+        val competition: String?,
+        val awayScore: Int?,
+        val homeScore: Int?
 )

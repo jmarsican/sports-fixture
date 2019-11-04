@@ -1,4 +1,4 @@
-package com.javiermarsicano.sportsfixture.views.fixtureslist
+package com.javiermarsicano.sportsfixture.views.results
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -9,20 +9,22 @@ import com.javiermarsicano.sportsfixture.MyApplication
 import com.javiermarsicano.sportsfixture.R
 import com.javiermarsicano.sportsfixture.common.mvp.BaseMVPFragment
 import com.javiermarsicano.sportsfixture.views.adapters.MyItemRecyclerViewAdapter
+import com.javiermarsicano.sportsfixture.views.fixtureslist.ResultsPresenter
+import com.javiermarsicano.sportsfixture.views.fixtureslist.ResultsView
 import com.javiermarsicano.sportsfixture.views.models.Fixture
 import kotlinx.android.synthetic.main.fragment_items_list.view.*
 import timber.log.Timber
 import javax.inject.Inject
 
-class FixturesFragment: BaseMVPFragment<FixtureView, FixturesListPresenter>(), FixtureView {
+class ResultsFragment : BaseMVPFragment<ResultsView, ResultsPresenter>(), ResultsView {
 
     @Inject
-    lateinit var mPresenter: FixturesListPresenterImpl
+    lateinit var mPresenter: ResultsPresenterImpl
 
     private lateinit var mAdapter: MyItemRecyclerViewAdapter
 
     companion object {
-        fun newInstance() = FixturesFragment()
+        fun newInstance() = ResultsFragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +48,7 @@ class FixturesFragment: BaseMVPFragment<FixtureView, FixturesListPresenter>(), F
             val previousItems = getPresenter().getCache()
             mAdapter.setItemsList(previousItems.toMutableList())
         } else {
-            getPresenter().getFixtures()
+            getPresenter().getResults()
         }
     }
 
@@ -54,8 +56,8 @@ class FixturesFragment: BaseMVPFragment<FixtureView, FixturesListPresenter>(), F
 
     override fun layoutId() = R.layout.fragment_items_list
 
-    override fun showFixtures(fixtures: List<Fixture>?) {
+    override fun showResults(fixtures: List<Fixture>) {
         Timber.i("repo count received  ${fixtures?.size}")
-        if (fixtures != null) mAdapter.setItemsList(fixtures.toMutableList())
+        mAdapter.setItemsList(fixtures.toMutableList())
     }
 }

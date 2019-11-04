@@ -5,6 +5,8 @@ import android.arch.persistence.room.Room
 import com.javiermarsicano.sportsfixture.data.db.FixturesDatabase
 import com.javiermarsicano.sportsfixture.data.repository.FixtureRepository
 import com.javiermarsicano.sportsfixture.data.repository.FixtureRepositoryImpl
+import com.javiermarsicano.sportsfixture.data.repository.ResultsRepository
+import com.javiermarsicano.sportsfixture.data.repository.ResultsRepositoryImpl
 import com.javiermarsicano.sportsfixture.data.services.SportsApiServices
 import dagger.Module
 import dagger.Provides
@@ -52,8 +54,14 @@ class RepositoriesModule(private val application: Application) {
 
     @Singleton
     @Provides
-    fun provideRepository(service: SportsApiServices, db: FixturesDatabase) : FixtureRepository {
+    fun provideFixturesRepository(service: SportsApiServices, db: FixturesDatabase) : FixtureRepository {
         return FixtureRepositoryImpl(service, db)
+    }
+
+    @Singleton
+    @Provides
+    fun provideResultsRepository(service: SportsApiServices, db: FixturesDatabase) : ResultsRepository {
+        return ResultsRepositoryImpl(service, db)
     }
 
     @Singleton
