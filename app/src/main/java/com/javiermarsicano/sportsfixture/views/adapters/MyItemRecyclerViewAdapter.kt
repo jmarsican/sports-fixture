@@ -29,7 +29,7 @@ class MyItemRecyclerViewAdapter(private var mValues: MutableList<Fixture> = muta
 
     private lateinit var mContext: Context
 
-    private val DAYS_POSTPONED = 3 // This info should be provided with fixture api web services
+    private val daysPostponed = 3 // This info should be provided with fixture api web services
 
     private val typeDivisor = "DIVISOR"
 
@@ -65,7 +65,7 @@ class MyItemRecyclerViewAdapter(private var mValues: MutableList<Fixture> = muta
             it.formatedDate
         }).toMutableList()
 
-        if (mValues.size > 1) {
+        if (mValues.size > 0) {
             otherList.add(Fixture(id = 0, type = typeDivisor, formatedDate = mValues[0].formatedDate))
             otherList.add(mValues[0])
 
@@ -131,7 +131,7 @@ class MyItemRecyclerViewAdapter(private var mValues: MutableList<Fixture> = muta
 
             holder.postponed.visibility = if (item.state == STATE.POS.value) VISIBLE else GONE
 
-            holder.matchData.text = getMatchDataLabel(item.formatedDate, item)
+            holder.matchData.text = getMatchDataLabel(item)
 
             if (item.state != STATE.FINISHED.value) {
                 showPreMatchDateInfo(holder, item)
@@ -146,7 +146,7 @@ class MyItemRecyclerViewAdapter(private var mValues: MutableList<Fixture> = muta
 
         val cal = Calendar.getInstance().apply {
             time = item.formatedDate
-            if (item.state == STATE.POS.value) add(Calendar.DATE, -DAYS_POSTPONED)
+            if (item.state == STATE.POS.value) add(Calendar.DATE, -daysPostponed)
         }
         holder.date.text = cal.get(Calendar.DAY_OF_MONTH).toString()
     }
@@ -166,8 +166,8 @@ class MyItemRecyclerViewAdapter(private var mValues: MutableList<Fixture> = muta
         }
     }
 
-    private fun getMatchDataLabel(date: Date?, item: Fixture): SpannableStringBuilder {
-        val dateLabel = SimpleDateFormat(USER_FRIENDLY_DATE_FORMAT, Locale.US).format(date)
+    private fun getMatchDataLabel(item: Fixture): SpannableStringBuilder {
+        val dateLabel = SimpleDateFormat(USER_FRIENDLY_DATE_FORMAT, Locale.US).format(item.formatedDate)
         val matchInfo = item.venue?.name + " | " + dateLabel
         val span = SpannableStringBuilder(matchInfo)
         if (item.state == STATE.POS.value) {
