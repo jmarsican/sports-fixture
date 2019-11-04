@@ -1,15 +1,13 @@
 package com.javiermarsicano.sportsfixture.views.fixtureslist
 
 import com.javiermarsicano.sportsfixture.data.repository.FixtureRepository
-import com.javiermarsicano.sportsfixture.data.models.Fixture
+import com.javiermarsicano.sportsfixture.views.models.Fixture
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.Matchers.*
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
+import org.mockito.Matchers.anyString
+import org.mockito.Mockito.*
 import java.io.IOException
 
 class FixturesListPresenterTest {
