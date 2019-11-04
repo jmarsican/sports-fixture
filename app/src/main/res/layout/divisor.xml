@@ -10,8 +10,8 @@
         style="@style/HighlightedText"
         android:paddingStart="19dp"
         android:textStyle="bold"
-        android:layout_marginTop="@dimen/vertical_distance"
-        android:layout_marginBottom="@dimen/vertical_distance"
+        android:paddingTop="@dimen/vertical_distance"
+        android:paddingBottom="@dimen/vertical_distance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/grey"/>

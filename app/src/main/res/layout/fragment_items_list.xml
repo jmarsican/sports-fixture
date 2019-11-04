@@ -6,11 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <SearchView
+        android:id="@+id/filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/items_list"
         app:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/entry_item"/>
+
 
 </LinearLayout>

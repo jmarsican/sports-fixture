@@ -55,6 +55,10 @@ class MyItemRecyclerViewAdapter(private var mValues: MutableList<Fixture> = muta
         }).toMutableList()
 
         val otherList = mutableListOf<Fixture>()
+        if (mValues.isNotEmpty()) {
+            otherList.add(Fixture(id = 0, type = "DIVISOR", formatedDate = mValues[0].formatedDate))
+            otherList.add(mValues[0])
+        }
         for (index in 1 until mValues.size - 1) {
             val month1 = Calendar.getInstance().apply {
                 time = mValues[index].formatedDate
@@ -170,6 +174,12 @@ class MyItemRecyclerViewAdapter(private var mValues: MutableList<Fixture> = muta
     }
 
     override fun getItemCount(): Int = mValues.size
+
+    fun filter(text: String) {
+        setItemsList(mValues.filter {
+            it.competitionStage?.competition?.name?.toUpperCase() == text.toUpperCase()
+        }.toMutableList())
+    }
 
     inner class FixtureViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
         val competition = mView.competition
